@@ -16,6 +16,91 @@
       "message": "Any input on these two changes: @matthias.sohn@gmail.com or @trevor.getty@blueoptima.com ?",
       "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "582c68d2_cc482aaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:13:20Z",
+      "side": 1,
+      "message": "Hi, this is great work, and logically correct.  Can we make some small alterations to make this work more re-usable across different aiTypes, and also to force the decision about what headers etc, look like when using MISTRAL.  As such see my recommendations to make this a new aiType and to use new ChatRequest classes for the serialized data to make it clear what is being used at any one time.",
+      "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00207319_4b83ca88",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:13:20Z",
+      "side": 1,
+      "message": "I dont think we need a new member here, I think we should add to the aiType member which is meant for controlling specific behaviours.  E.g. aiType\u003dMISTRAL could be added to aiType and if set to true, then it can use random_seed implicitally as there are other aiTypes which need no seed at all.",
+      "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59227eb4_33733cdc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/aicodereview/config/Configuration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:13:20Z",
+      "side": 1,
+      "message": "What should Mistral use for headers by default, as its not discussed.  What aiType did you have set, was it the default CHATGPT, or something else.  I believe once you add the new aiType\u003dMISTRAL, search for all current uses of getAIType() so that you can force decisions about what other behaviours this provider requires.  GEMINI is also extremely close to MISTRAL and i will be adding its aiType as soon as I can also.",
+      "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e43bf0d_afae9fd0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/aicodereview/mode/common/model/api/openai/AIChatCompletionRequest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:13:20Z",
+      "side": 1,
+      "message": "So we will be sending seed, and random_seed if both set, unless dont send members if NULL is enabled in json serializer.  When we start playing around with serializers I believe its time we use some polymorphism here and we are clear on construction what we are expecting instead of this grey area.\n\nI think we should introduce a new AIChatCompletionRequest remove seed and randomSeed, and place these into 3 new classes:\n AIChatCompletionRequestNoSeed, \n AIChatCompletionRequestSeed\n AIChatCompletionRequestRandomSeed.  \n \nWe need a new factory class to create this which uses aiType to switch as before and return either one of these new concrete types.  The interface / base class should define methods for getSeed -\u003e note do not call this getRandomSeed, then the implementation can be overriden in the NoSeed to return null, seed, or randomSeed as each override class requires.   This allows this to grow and be reused, but most importantly its not specific to MISTRAL.  As there are other providers that need positive only seeds, or to use seed/random_seed in the serialized info.",
+      "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2cb98c_e96973ad",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/aicodereview/mode/stateless/client/api/chatai/AIChatClientStateless.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:13:20Z",
+      "side": 1,
+      "message": "as discussed elsewhere the new interface would only use .seed() to set the required member which would be seed or randomSeed internally depending on contrete type.  Putting this back to as it was before.",
+      "revId": "dc05bc5f66c8726ff3ef2949ab14cb1f4edfde9c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
