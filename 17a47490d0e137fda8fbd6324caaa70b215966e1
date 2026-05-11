@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6130278d_e35de1b0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/aicodereview/mode/common/client/http/HttpClientWithRetry.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:18:01Z",
+      "side": 1,
+      "message": "Can you check if response.body can return NULL for the string return value.  If so then we can\u0027t use string concat for this logger.  We should probably move to use logger print identification instead.   At least we protect against NPE and it would then just print body: null.",
+      "revId": "17a47490d0e137fda8fbd6324caaa70b215966e1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
