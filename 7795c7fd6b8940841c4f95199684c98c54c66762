@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae43ac58_3647568c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4373441
+      },
+      "writtenOn": "2026-05-11T15:23:36Z",
+      "side": 1,
+      "message": "Please note once this is checked in, let me know and I will get the stable-3.13 branch created from master so we can create an AUTO build for this version. \nIt then needs the ci-scripts updating to build from this branch. e.g. https://gerrit-review.googlesource.com/c/gerrit-ci-scripts/+/471544/1/jenkins/gerrit-mvn-plugin-ai-code-review.yaml",
+      "revId": "7795c7fd6b8940841c4f95199684c98c54c66762",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
